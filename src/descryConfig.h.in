@@ -1,0 +1,3 @@
+// This file is used with CMake only to pass the version number into the program.
+#define descry_VERSION_MAJOR @descry_VERSION_MAJOR@
+#define descry_VERSION_MINOR @descry_VERSION_MINOR@
