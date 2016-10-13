@@ -9,7 +9,9 @@ target_link_libraries(descry
     Image
     boost_system-mt
     boost_filesystem-mt
-    boost_regex-include(CMakeExpandImportedTargets)
+    boost_regex-mt
     cvtile
+    gdal
     opencv_core
+    opencv_imgproc
 )

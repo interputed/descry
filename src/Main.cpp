@@ -41,8 +41,7 @@ std::string OutputValidation(const std::string input_file);
 
 int main(int argc, char **argv)
 {
-    std::cout << "\nExecuting descry..." << std::endl;
-    std::cout << "\tRuntime Version: " << Version() << std::endl;
+    std::cout << "\nExecuting descry - Version " << Version() << "." << std::endl;
 
     std::string temp_file;
     try {
@@ -62,15 +61,34 @@ int main(int argc, char **argv)
     }
     const std::string OUTPUT_FILENAME = temp_file;
 
-    std::cout << "\tImage path: " << INPUT_FILENAME << std::endl;
-    std::cout << "\tOutput image path: " << OUTPUT_FILENAME << std::endl;
-    // TODO: Create cvTile and stuff. Write Image class and use it for cvTile
-    // functionality.
-    Image image_handler(INPUT_FILENAME, OUTPUT_FILENAME);
+    // The main data handling object.
+    Image img(INPUT_FILENAME, OUTPUT_FILENAME);
+    // Used to specify between the input and output files for some Image class methods.
+    const char in[]  = "INPUT";
+    const char out[] = "OUTPUT";
 
+// Displaying format data, mainly for debugging. Set to 0 if undesired.
+// A value of -1 for any property indicates an error.
+#if 1
+    // Input section
+    std::cout << "\n\tImage path: " << INPUT_FILENAME << std::endl;
+    std::cout << "\t\tInput Image Dimensions: " << img.getRasterSize().height << " x "
+            << img.getRasterSize().width << std::endl;
+    std::cout << "\t\tInput Tile Dimensions: " << img.getRowCount(in) << " x "
+            << img.getColumnCount(in) << std::endl;
+    std::cout << "\t\tInput Band Count: " << img.getBandCount(in) << std::endl;
+    // Output section
+    std::cout << "\n\tOutput image path: " << OUTPUT_FILENAME << std::endl;
+    std::cout << "\t\tOutput Image Dimensions: " << img.getRasterSize().height << " x "
+            << img.getRasterSize().width << std::endl;
+    std::cout << "\t\tOutput Tile Dimensions: " << img.getRowCount(out) << " x "
+            << img.getColumnCount(out) << std::endl;
+    std::cout << "\t\tOutput Band Count: " << img.getBandCount(out) << std::endl;
+#endif
 
+    img.InputToOutput();
 
-    std::cout << "Execution finished." << std::endl;
+    std::cout << "\nExecution finished." << std::endl;
     return 0;
 }
 
